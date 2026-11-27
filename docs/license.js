@@ -2,7 +2,7 @@
 // Works identically in browser extensions (chrome.storage.local) and standalone Web App (localStorage).
 
 (function (globalScope) {
-  const GUMROAD_PRODUCT_ID = "REPLACE_WITH_GUMROAD_PRODUCT_ID"
+  const GUMROAD_PRODUCT_ID = "0VULq1PmC4l-UUg7P6T8vQ=="
   const GUMROAD_CHECKOUT_URL = "https://nicolastic1642.gumroad.com/l/pdfvault-pro"
   const STORAGE_KEY = "pdfvault_pro_license"
 
