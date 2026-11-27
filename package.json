@@ -1,0 +1,12 @@
+{
+  "name": "pdfvault-app",
+  "version": "1.0.0",
+  "description": "100% offline PDF merger, splitter, rotator, watermark & Image-to-PDF toolkit. Never upload private files to cloud servers.",
+  "scripts": {
+    "test": "bun test"
+  },
+  "private": true,
+  "dependencies": {
+    "pdf-lib": "^1.17.1"
+  }
+}

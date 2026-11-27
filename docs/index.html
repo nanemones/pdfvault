@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PDFVault — 100% Offline PDF Merge, Split, Rotate, Watermark & Images-to-PDF</title>
+  <meta name="description" content="Merge, split, rotate, watermark PDFs and convert images to PDF 100% locally in your browser. Never upload private contracts, bank statements, or IDs to cloud servers." />
+  <link rel="stylesheet" href="app.css" />
+</head>
+<body>
+  <div class="wrap">
+    <header class="header">
+      <div class="brand">
+        <div class="logo-dot">PV</div>
+        <div>
+          <h1 class="brand-title">PDFVault</h1>
+          <p class="brand-sub">100% Offline PDF Workbench · Zero Cloud Uploads</p>
+        </div>
+      </div>
+      <div class="header-right">
+        <span id="plan-badge" class="badge badge-free">FREE</span>
+        <a id="top-upgrade" href="https://nicolastic1642.gumroad.com/l/pdfvault-pro" target="_blank" rel="noopener noreferrer" class="btn btn-pro-solid">Unlock Pro — $14.99 Once</a>
+      </div>
+    </header>
+
+    <nav class="tabs" role="tablist">
+      <button class="tab active" data-tab="merge" type="button">Merge PDFs</button>
+      <button class="tab" data-tab="split" type="button">Split / Extract</button>
+      <button class="tab" data-tab="rotate" type="button">Rotate Pages</button>
+      <button class="tab" data-tab="watermark" type="button">Watermark <span class="pro-tag">PRO</span></button>
+      <button class="tab" data-tab="images" type="button">Images → PDF <span class="pro-tag">PRO</span></button>
+    </nav>
+
+    <div id="toast" class="toast hidden"></div>
+
+    <!-- MERGE PANEL -->
+    <section id="panel-merge" class="panel">
+      <h2>Merge Multiple PDFs Locally</h2>
+      <p class="hint">Free: merge up to 2 PDFs. Pro ($14.99 once): unlimited PDFs + drag/button reordering.</p>
+      <label class="dropzone">
+        <input id="merge-input" type="file" accept="application/pdf" multiple />
+        <span>Click to select PDF files (processed 100% on your device)</span>
+      </label>
+      <ul id="merge-list" class="file-list"></ul>
+      <div class="action-row">
+        <button id="btn-merge-run" class="btn btn-primary" type="button">Merge &amp; Download PDF</button>
+        <button id="btn-merge-clear" class="btn btn-secondary" type="button">Clear List</button>
+      </div>
+    </section>
+
+    <!-- SPLIT PANEL -->
+    <section id="panel-split" class="panel hidden">
+      <h2>Split / Extract Specific Pages</h2>
+      <p class="hint">Free: extract 1 single page (e.g. <code>1</code>). Pro: multi-page ranges (e.g. <code>1-3, 5, 8-12</code>).</p>
+      <label class="dropzone">
+        <input id="split-input" type="file" accept="application/pdf" />
+        <span id="split-file-label">Click to choose 1 PDF file</span>
+      </label>
+      <div class="field-row">
+        <label for="split-range">Pages to extract:</label>
+        <input id="split-range" class="input" type="text" placeholder="e.g. 1-3, 5, 8" value="1" />
+      </div>
+      <button id="btn-split-run" class="btn btn-primary" type="button">Extract &amp; Download PDF</button>
+    </section>
+
+    <!-- ROTATE PANEL -->
+    <section id="panel-rotate" class="panel hidden">
+      <h2>Rotate PDF Pages (Free)</h2>
+      <p class="hint">Fix sideways scans instantly without uploading private files.</p>
+      <label class="dropzone">
+        <input id="rotate-input" type="file" accept="application/pdf" />
+        <span id="rotate-file-label">Click to choose 1 PDF file</span>
+      </label>
+      <div class="field-row">
+        <label for="rotate-angle">Rotation:</label>
+        <select id="rotate-angle" class="input">
+          <option value="90">90° Clockwise</option>
+          <option value="180">180° Upside Down</option>
+          <option value="270">90° Counter-Clockwise</option>
+        </select>
+      </div>
+      <button id="btn-rotate-run" class="btn btn-primary" type="button">Rotate &amp; Download PDF</button>
+    </section>
+
+    <!-- WATERMARK PANEL -->
+    <section id="panel-watermark" class="panel hidden">
+      <h2>Stamp Diagonal Text Watermark <span class="pro-tag">PRO</span></h2>
+      <p class="hint">Protect confidential contracts, drafts, or ID copies before sharing.</p>
+      <label class="dropzone">
+        <input id="wm-input" type="file" accept="application/pdf" />
+        <span id="wm-file-label">Click to choose 1 PDF file</span>
+      </label>
+      <div class="field-row">
+        <label for="wm-text">Watermark text:</label>
+        <input id="wm-text" class="input" type="text" value="CONFIDENTIAL — DO NOT DISTRIBUTE" />
+      </div>
+      <button id="btn-wm-run" class="btn btn-primary" type="button">Watermark &amp; Download PDF</button>
+    </section>
+
+    <!-- IMAGES TO PDF PANEL -->
+    <section id="panel-images" class="panel hidden">
+      <h2>Convert PNG / JPG Images to PDF <span class="pro-tag">PRO</span></h2>
+      <p class="hint">Combine receipts, invoices, or ID photos into one clean PDF completely offline.</p>
+      <label class="dropzone">
+        <input id="img-input" type="file" accept="image/png,image/jpeg" multiple />
+        <span id="img-file-label">Click to choose PNG or JPG images</span>
+      </label>
+      <ul id="img-list" class="file-list"></ul>
+      <button id="btn-img-run" class="btn btn-primary" type="button">Build &amp; Download PDF</button>
+    </section>
+
+    <!-- LICENSE FOOTER -->
+    <footer id="pro-box" class="pro-box">
+      <div>
+        <strong>Already have a PDFVault Pro key?</strong>
+        <p class="hint" style="margin:2px 0 0;">$14.99 one-time — replaces $15/mo Adobe &amp; Smallpdf subscriptions forever.</p>
+      </div>
+      <div class="license-row">
+        <input id="license-input" class="input" type="text" placeholder="Paste Gumroad license key..." />
+        <button id="btn-activate" class="btn btn-primary" type="button">Activate</button>
+      </div>
+      <p id="license-msg" class="license-msg hidden"></p>
+    </footer>
+
+    <footer id="pro-active-box" class="pro-active-box hidden">
+      <span>PDFVault Pro Active — All unlimited offline tools unlocked</span>
+      <button id="btn-deactivate" class="btn btn-secondary" type="button">Remove Key</button>
+    </footer>
+
+    <p class="suite-note">
+      100% client-side · Zero server uploads · Local Privacy Suite:
+      <a href="https://nanemones.github.io/chatvault/" target="_blank" rel="noopener">ChatVault</a> ·
+      <a href="https://nanemones.github.io/tablesnap/" target="_blank" rel="noopener">TableSnap</a> ·
+      <a href="https://nanemones.github.io/clipvault/" target="_blank" rel="noopener">ClipVault</a>
+    </p>
+  </div>
+
+  <script src="vendor/pdf-lib.min.js"></script>
+  <script src="pdf-ops.js"></script>
+  <script src="license.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
